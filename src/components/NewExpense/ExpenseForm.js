@@ -13,9 +13,14 @@ const ExpenseForm = () => {
   });
   const titleChangeHandler = (e) => {
     // setEnteredTitle(e.target.value);
-    setUserInput({
-      ...userInput,
-      enteredTitle: e.target.value,
+    // setUserInput({
+    //   ...userInput,
+    //   enteredTitle: e.target.value,
+    // });
+    //위 방법처럼 작성할 경우 이전 상태가 최신상태로 업데이트 되어있지 않을 수 있다.
+    // state가 이전 상태에 의존하고 있다면 아래처럼 작성해 최신값을 가져올 수 있게 해야한다.
+    setUserInput((prev) => {
+      return { ...prev, enteredTitle: e.target.value };
     });
   };
   const amountChangeHandler = (e) => {

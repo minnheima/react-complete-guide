@@ -5,7 +5,7 @@ const ExpensesFilter = (props) => {
   const filterHandler = (e) => {
     e.preventDefault();
     const year = e.target.value;
-    props.onAddFilter(year);
+    props.onChangeFilter(year);
   };
   return (
     <div className="expenses-filter">

@@ -1,0 +1,40 @@
+.user_form {
+  width: 50%;
+  height: auto;
+  margin: 2rem auto;
+  border-radius: 15px;
+  padding: 1rem;
+  background-color: #fff;
+  box-sizing: border-box;
+  max-width: 40rem;
+}
+
+.user_form div {
+  width: 100%;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.user_form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.user_form input {
+  font: inherit;
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 0.15rem;
+  margin-bottom: 0.5rem;
+}
+.user_form input:focus {
+  outline: none;
+  border-color: #4f005f;
+}
+
+/* .input {
+  margin: 2rem auto;
+  padding: 1rem;
+  width: 90%;
+  max-width: 40rem;
+} */

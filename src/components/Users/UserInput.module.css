@@ -1,12 +1,12 @@
 .user_form {
-  width: 50%;
+  width: 90%;
+  max-width: 40rem;
   height: auto;
   margin: 2rem auto;
   border-radius: 15px;
   padding: 1rem;
   background-color: #fff;
   box-sizing: border-box;
-  max-width: 40rem;
 }
 
 .user_form div {

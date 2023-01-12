@@ -55,7 +55,7 @@ const Login = (props) => {
       console.log("CLEANUP");
       clearTimeout(identifier); // cleanup 함수 실행될 때 타이머 제거(새 타이머 설정하기 전 마지막 타이머 삭제)
     };
-  }, [emailValidity, passwordValidity]);
+  }, [emailValidity, passwordValidity]); // 구조분해할당으로 email, password의 유효성 값만 가져와서 종속성으로 넣어준다.
 
   const emailChangeHandler = (event) => {
     // setEnteredEmail(event.target.value);

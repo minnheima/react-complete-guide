@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
+import AuthContext from "../../store/auth-context";
 
 const USER_INPUT = "USER_INPUT";
 const INPUT_BLUR = "INPUT_BLUR";
@@ -37,6 +38,7 @@ const Login = (props) => {
   const [emailState, dispatchEmail] = useReducer(emailReducer, { value: "", isValid: null });
   const [passwordState, dispatchPW] = useReducer(passwordReducer, { value: "", isValid: null });
 
+  const authCtx = useContext(AuthContext);
   // useEffect(() => {
   //   console.log("EFFECT RUNNING"); // 처음 마운트/렌더링 될 떄 한 번만 실행된다
   //   return () => {
@@ -81,7 +83,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    authCtx.onLogin(emailState.value, passwordState.value);
   };
 
   return (

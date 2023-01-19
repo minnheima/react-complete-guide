@@ -32,10 +32,12 @@ const DUMMY_MEALS = [
 const AvailableMeals = () => {
   const mealsList = DUMMY_MEALS.map((meal) => (
     <MealItem
+      id={meal.id}
       key={meal.id}
       name={meal.name}
       description={meal.description}
       price={meal.price}
+      // 위처럼 개별적으로 props값을 넘겨줄 수도 있지만 meal={meal} 이런식으로 통으로 넘길 수도 있다  ->mealitem에서는 props.meal.price 이렇게 작성해야함
     />
   ));
   return (

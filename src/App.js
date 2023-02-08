@@ -1,41 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import Tasks from "./components/Tasks/Tasks";
 import NewTask from "./components/NewTask/NewTask";
+import useHttp from "./hooks/use-http";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [tasks, setTasks] = useState([]);
 
-  const fetchTasks = async (taskText) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch("https://react-http-8c9e9-default-rtdb.firebaseio.com/tasks.json");
+  const transformTasks = useCallback((tasksObj) => {
+    const loadedTasks = [];
 
-      if (!response.ok) {
-        throw new Error("Request failed!");
-      }
-
-      const data = await response.json();
-
-      const loadedTasks = [];
-
-      for (const taskKey in data) {
-        loadedTasks.push({ id: taskKey, text: data[taskKey].text });
-      }
-
-      setTasks(loadedTasks);
-    } catch (err) {
-      setError(err.message || "Something went wrong!");
+    for (const taskKey in tasksObj) {
+      loadedTasks.push({ id: taskKey, text: tasksObj[taskKey].text });
     }
-    setIsLoading(false);
-  };
+
+    setTasks(loadedTasks);
+  }, []); // 상태 갱신을 하는 setTasks외에 어떤것도 외부에서 쓰이고 있지 않아서 dependency를 빈 상태로 두어도 됨
+
+  const { isLoading, error, sendRequest: fetchTasks } = useHttp(transformTasks);
+  // sendRequest (:)comma-> we can rename to fetchTasks
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    fetchTasks({ url: "https://react-http-8c9e9-default-rtdb.firebaseio.com/tasks.json" });
+  }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));

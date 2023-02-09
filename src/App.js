@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 
 import Tasks from "./components/Tasks/Tasks";
 import NewTask from "./components/NewTask/NewTask";
@@ -7,21 +7,20 @@ import useHttp from "./hooks/use-http";
 function App() {
   const [tasks, setTasks] = useState([]);
 
-  const transformTasks = useCallback((tasksObj) => {
-    const loadedTasks = [];
-
-    for (const taskKey in tasksObj) {
-      loadedTasks.push({ id: taskKey, text: tasksObj[taskKey].text });
-    }
-
-    setTasks(loadedTasks);
-  }, []); // 상태 갱신을 하는 setTasks외에 어떤것도 외부에서 쓰이고 있지 않아서 dependency를 빈 상태로 두어도 됨
-
-  const { isLoading, error, sendRequest: fetchTasks } = useHttp(transformTasks);
+  const { isLoading, error, sendRequest: fetchTasks } = useHttp();
   // sendRequest (:)comma-> we can rename to fetchTasks
 
   useEffect(() => {
-    fetchTasks({ url: "https://react-http-8c9e9-default-rtdb.firebaseio.com/tasks.json" });
+    const transformTasks = (tasksObj) => {
+      const loadedTasks = [];
+
+      for (const taskKey in tasksObj) {
+        loadedTasks.push({ id: taskKey, text: tasksObj[taskKey].text });
+      }
+      setTasks(loadedTasks);
+    };
+
+    fetchTasks({ url: "https://react-http-8c9e9-default-rtdb.firebaseio.com/tasks.json" }, transformTasks);
   }, [fetchTasks]);
 
   const taskAddHandler = (task) => {

@@ -1,24 +1,30 @@
-import { useRef } from 'react';
+import { useRef } from "react";
 
-import classes from './TaskForm.module.css';
+import classes from "./TaskForm.module.css";
 
 const TaskForm = (props) => {
   const taskInputRef = useRef();
 
   const submitHandler = (event) => {
     event.preventDefault();
-
     const enteredValue = taskInputRef.current.value;
 
     if (enteredValue.trim().length > 0) {
       props.onEnterTask(enteredValue);
     }
+    taskInputRef.current.value = ""; //일반적이진 않지만
   };
 
   return (
-    <form className={classes.form} onSubmit={submitHandler}>
-      <input type='text' ref={taskInputRef} />
-      <button>{props.loading ? 'Sending...' : 'Add Task'}</button>
+    <form
+      className={classes.form}
+      onSubmit={submitHandler}
+    >
+      <input
+        type="text"
+        ref={taskInputRef}
+      />
+      <button>{props.loading ? "Sending..." : "Add Task"}</button>
     </form>
   );
 };

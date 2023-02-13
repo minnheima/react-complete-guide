@@ -3,23 +3,32 @@ import { useState } from "react";
 const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+  // const [formIsValid, setFormIsValid] = useState(false);
 
   const enteredNameIsValid = enteredName.trim() !== "";
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
 
-  const nameInputChangeHandler = (event) => {
-    setEnteredName(event.target.value);
-    // if (event.target.value.trim() !== "") {
-    //   //enteredName으로 하면 최신값을 가져오지 못할 수 있기 때문에
-    //   setEnteredNameIsValid(true);
-    // }
+  let formIsValid = false;
+  // useEffect(() => {  // 그치만 여기서 useEffect를 써서 좋을 게 없다.. 없애도 됨
+  //   if (enteredNameIsValid) {  //다른 입력폼이 있다면 추가해서
+  //     setFormIsValid(true);
+  //   } else {
+  //     setFormIsValid(false);
+  //   }
+  // }, [enteredNameIsValid]);
+  if (enteredNameIsValid) {
+    formIsValid = true;
+  }
+
+  const nameInputChangeHandler = (e) => {
+    setEnteredName(e.target.value);
   };
-  const nameInputBlurHandler = (event) => {
+  const nameInputBlurHandler = () => {
     setEnteredNameTouched(true);
   };
 
-  const formSubmitHandler = (event) => {
-    event.preventDefault();
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
     setEnteredNameTouched(true);
     if (!enteredNameIsValid) {
       return;
@@ -46,7 +55,8 @@ const SimpleInput = (props) => {
         {nameInputIsInvalid && <p className="error-text">Name must not be empty.</p>}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
+        {/* button을 비활성화하는 것이 괜찮은 방법인지 확인   */}
       </div>
     </form>
   );

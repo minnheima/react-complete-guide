@@ -3,54 +3,17 @@ import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import classes from "./AvailableMeals.module.css";
 
-// const fetchMealHandler = useCallback(async () => {
-//   const response = await fetch("https://react-http-8c9e9-default-rtdb.firebaseio.com/meals.json");
-//   if (!response.ok) {
-//     throw new Error("something went wrong");
-//   }
-//   const data = await response.json();
-//   const meals = [];
-//   for (const key in data) {
-//     meals.push({
-//       id: key,
-//       name: data[key].name,
-//       description: data[key].description,
-//       price: data[key].price,
-//     });
-//   }
-// }, []);
-// const DUMMY_MEALS = [
-//   {
-//     id: 'm1',
-//     name: 'Sushi',
-//     description: 'Finest fish and veggies',
-//     price: 22.99,
-//   },
-//   {
-//     id: 'm2',
-//     name: 'Schnitzel',
-//     description: 'A german specialty!',
-//     price: 16.5,
-//   },
-//   {
-//     id: 'm3',
-//     name: 'Barbecue Burger',
-//     description: 'American, raw, meaty',
-//     price: 12.99,
-//   },
-//   {
-//     id: 'm4',
-//     name: 'Green Bowl',
-//     description: 'Healthy...and green...',
-//     price: 18.99,
-//   },
-// ];
-
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch("https://react-http-8c9e9-default-rtdb.firebaseio.com/meals.json");
+
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
       const responseData = await response.json();
       const loadedMeals = [];
       for (const key in responseData) {
@@ -64,6 +27,7 @@ const AvailableMeals = () => {
       setMeals(loadedMeals);
     };
     fetchMeals();
+    setIsLoading(false);
   }, []);
 
   const mealsList = meals.map((meal) => (
@@ -78,9 +42,7 @@ const AvailableMeals = () => {
 
   return (
     <section className={classes.meals}>
-      <Card>
-        <ul>{mealsList}</ul>
-      </Card>
+      <Card>{isLoading ? <p className={classes.mealsLoading}>Loading...</p> : <ul>{mealsList}</ul>}</Card>
     </section>
   );
 };

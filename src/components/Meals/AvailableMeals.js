@@ -3,22 +3,6 @@ import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import classes from "./AvailableMeals.module.css";
 
-// const fetchMealHandler = useCallback(async () => {
-//   const response = await fetch("https://react-http-8c9e9-default-rtdb.firebaseio.com/meals.json");
-//   if (!response.ok) {
-//     throw new Error("something went wrong");
-//   }
-//   const data = await response.json();
-//   const meals = [];
-//   for (const key in data) {
-//     meals.push({
-//       id: key,
-//       name: data[key].name,
-//       description: data[key].description,
-//       price: data[key].price,
-//     });
-//   }
-// }, []);
 // const DUMMY_MEALS = [
 //   {
 //     id: 'm1',

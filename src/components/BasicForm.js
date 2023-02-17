@@ -1,6 +1,9 @@
 import React from "react";
 import useInput from "../hooks/use-input";
 
+const isNotEmpty = (value) => value.trim() !== "";
+const isEmail = (value) => value.includes("@");
+
 const BasicForm = (props) => {
   const {
     value: enteredFirstName,
@@ -9,7 +12,7 @@ const BasicForm = (props) => {
     valueChangeHandler: firstNameChangeHandler,
     inputBlurHandler: firstNameBlurHandler,
     reset: resetFirstName,
-  } = useInput((value) => value.trim() !== "");
+  } = useInput(isNotEmpty);
   const {
     value: enteredLastName,
     isValid: enteredLastNameIsValid,
@@ -17,7 +20,7 @@ const BasicForm = (props) => {
     valueChangeHandler: lastNameChangeHandler,
     inputBlurHandler: lastNameBlurHandler,
     reset: resetLastName,
-  } = useInput((value) => value.trim() !== "");
+  } = useInput(isNotEmpty);
 
   const {
     value: enteredEmail,
@@ -26,7 +29,7 @@ const BasicForm = (props) => {
     valueChangeHandler: emailChnageHandler,
     inputBlurHandler: emailBlurHandler,
     reset: resetEmail,
-  } = useInput((value) => value.includes("@"));
+  } = useInput(isEmail);
 
   let formIsValid = false;
 
@@ -55,7 +58,7 @@ const BasicForm = (props) => {
             onBlur={firstNameBlurHandler}
             value={enteredFirstName}
           />
-          {firstNameHasError ? <p>Please enter first name.</p> : ""}
+          {firstNameHasError && <p>Please enter first name.</p>}
         </div>
         <div className="form-control">
           <label htmlFor="name">Last Name</label>
@@ -66,7 +69,7 @@ const BasicForm = (props) => {
             onBlur={lastNameBlurHandler}
             value={enteredLastName}
           />
-          {lastNameHasError ? <p>Please enter last name.</p> : ""}
+          {lastNameHasError && <p>Please enter last name.</p>}
         </div>
       </div>
       <div className="form-control">
@@ -78,7 +81,7 @@ const BasicForm = (props) => {
           onBlur={emailBlurHandler}
           value={enteredEmail}
         />
-        {emailValueHasError ? <p>Please enter valid email address</p> : ""}
+        {emailValueHasError && <p>Please enter valid email address</p>}
       </div>
       <div className="form-actions">
         <button>Submit</button>

@@ -28,7 +28,9 @@ const AvailableMeals = () => {
       setMeals(loadedMeals);
       setIsLoading(false);
     };
-
+    // fetchMeals 는 async 함수!! -> 항상 promise를 반환한다 -> 오류로 인해 해당 promise가 거부됨
+    // 따라서 try/ catch 를 사용해서 래핑할 수 없다
+    // promise로 catch메소드를 추가
     fetchMeals().catch((error) => {
       setIsLoading(false);
       setHttpError(error.message);

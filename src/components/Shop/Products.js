@@ -2,9 +2,9 @@ import ProductItem from "./ProductItem";
 import classes from "./Products.module.css";
 
 const DUMMY_ITEMS = [
-  { id: "p1", title: "test item", price: 10, description: "this is a first item" },
-  { id: "p2", title: "test item2", price: 4, description: "this is a second item" },
-  { id: "p3", title: "test item3", price: 6, description: "this is a third item" },
+  { id: "p1", title: "item1", price: 10, description: "this is a first item" },
+  { id: "p2", title: "item2", price: 4, description: "this is a second item" },
+  { id: "p3", title: "item3", price: 6, description: "this is a third item" },
 ];
 const Products = (props) => {
   return (

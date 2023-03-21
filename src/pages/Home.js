@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function HomePage() {
   return (
     <>
-      <h1>home</h1>
+      <h1>Home page</h1>
       <p>
         Go to <Link to="/products">the list of products</Link>
       </p>
